@@ -1,0 +1,1 @@
+Get-EC2Instance | ForEach-Object{Stop-EC2Instance -InstanceId $_.Instances.InstanceID -ErrorAction SilentlyContinue }
