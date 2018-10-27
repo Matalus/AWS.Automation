@@ -1,0 +1,22 @@
+{
+  "defaultAWSProfile": "matt-ps",
+  "Region": "us-east-2",
+  "Instances": [
+    {
+      "Name": "Matt-Web-03",
+      "Type": "t2.micro",
+      "Image": "WINDOWS_2012R2_BASE"
+    },
+    {
+      "Name": "Matt-Web-04",
+      "Type": "t2.micro",
+      "Image": "WINDOWS_2012R2_BASE"
+    },
+    {
+      "Name": "Matt-Web-05",
+      "Type": "t2.micro",
+      "Image": "WINDOWS_2012R2_BASE"
+    }
+  ],
+  "DefaultImageName": "WINDOWS_2012R2_BASE"
+}
