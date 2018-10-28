@@ -38,27 +38,27 @@ ForEach($instance in $ActiveEC2.Instances){
 
 $ActiveEC2.Instances | Format-Table Name,InstanceId,InstanceType,PrivateIPAddress,PublicIpAddress,VpcId,State
 
-Log "Stopping Instances..."
+Log "Starting Instances..."
 
 ForEach($instance in $ActiveEC2.Instances){
-  Log "Stopping Instance $($instance.Name) : $($Instance.InstanceId)" "Yellow"
-  $StopEC2 = Stop-EC2Instance -InstanceId $instance.InstanceId
+  Log "Starting Instance $($instance.Name) : $($Instance.InstanceId)" "Green"
+  $StartEC2 = Start-EC2Instance -InstanceId $instance.InstanceId
 }
+
+$InstanceStart = $ActiveEC2.Instances
 
 Log "Verifying Instance State..."
 
 [array]$InstanceRunning = Get-EC2Instance | Where-Object {
-  $_.Instances.State.Name -ne "stopped" -and
-  $_.Instances.State.Name -ne "terminated"
+  $_.Instances.State.Name -eq "running"
 }
 Log "Instances Running: $($instanceRunning.Count)" "White"
 
-While($InstanceRunning.Count -gt 0){
+While($InstanceRunning.Count -ne $InstanceStart.Count){
   Start-Sleep -Seconds 5
   Log "Verifying Instance State..."
   [array]$InstanceRunning = Get-EC2Instance | Where-Object {
-    $_.Instances.State.Name -ne "stopped" -and
-    $_.Instances.State.Name -ne "terminated"
+    $_.Instances.State.Name -eq "running"
   }
   Log "Instances Running: $($instanceRunning.Count)" "White"
 }

@@ -12,6 +12,8 @@ if(!(Get-Module AWSPowerShell)){
   Import-Module "$RunDir\Modules\functions" -DisableNameChecking
   Log "Functions Loaded" "Yellow"
 
+## END AWSPowerShell BoilerPlate Code ###
+
 Log "Getting default EC2 Image..."
 [array]$EC2Image = Get-EC2ImageByName -Name $Config.DefaultImageName
 if($EC2Image.count -ge 1){
