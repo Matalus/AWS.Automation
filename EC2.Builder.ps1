@@ -30,7 +30,9 @@ ForEach($Instance in $Config.Instances){
   $InstanceExist = $null
 
   While($null -eq $InstanceExist){
-    $InstanceExist = Get-EC2Instance -Filter @{Name="tag:Name";Values=$Instance.Name}
+    $InstanceExist = Get-EC2Instance -Filter @{Name="tag:Name";Values=$Instance.Name} | Where-Object {
+      $_.Instances.State.Name.Value -ne "terminated"
+    }
     if($InstanceExist){ 
       Log "Instance $($Instance.Name) Already Exists" "Cyan"
     }else{
@@ -43,16 +45,21 @@ ForEach($Instance in $Config.Instances){
         MinCount = 1
         MaxCount = 1
         InstanceType = $Instance.Type
+        KeyName = $Config.keypairname
+        SecurityGroup = $Config.SecurityGroup
       }
       $InstanceExist = New-EC2Instance @params
       $Tag = New-EC2Tag -Resource $InstanceExist.Instances[0].InstanceId -Tag @{Key="Name";Value=$Instance.Name}
-      $InstanceExist = Get-EC2Instance -Filter @{Name="tag:Name";Values=$Instance.Name}
+      $InstanceExist = Get-EC2Instance -Filter @{Name="tag:Name";Values=$Instance.Name} | Where-Object{
+        $_.Instances.State.Name.Value -ne "terminated"
+      }
 
     }
   }
   $InstanceObj = [PSCustomObject]@{
     Name = ($InstanceExist.Instances.Tag | Where-Object {$_.Key -eq "Name"})[0].Value 
     Details = $InstanceExist.Instances[0] 
+    Password = Get-EC2PasswordData -InstanceId $InstanceExist.Instances.InstanceId -PemFile "$RunDir\$($config.keypairname).pem"
     status = $InstanceExist.Instances[0].State.Name.Value  
   }
   
@@ -62,6 +69,7 @@ ForEach($Instance in $Config.Instances){
     + InstanceType: $($instanceObj.Details.InstanceType)
     + Public IP: $($InstanceObj.Details.PublicIpAddress)
     + Status: $($InstanceObj.status)
+    + Password $($InstanceObj.Password)
 "@
 ""
 }

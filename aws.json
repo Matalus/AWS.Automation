@@ -3,6 +3,16 @@
   "Region": "us-east-2",
   "Instances": [
     {
+      "Name": "Matt-Web-01",
+      "Type": "t2.micro",
+      "Image": "WINDOWS_2012R2_BASE"
+    },
+    {
+      "Name": "Matt-Web-02",
+      "Type": "t2.micro",
+      "Image": "WINDOWS_2012R2_BASE"
+    },
+    {
       "Name": "Matt-Web-03",
       "Type": "t2.micro",
       "Image": "WINDOWS_2012R2_BASE"
@@ -18,5 +28,7 @@
       "Image": "WINDOWS_2012R2_BASE"
     }
   ],
-  "DefaultImageName": "WINDOWS_2012R2_BASE"
+  "DefaultImageName": "WINDOWS_2012R2_BASE",
+  "keypairname": "MattEC2",
+  "SecurityGroup": "MattEC2"
 }
