@@ -39,7 +39,7 @@ ForEach ($Instance in $Config.Instances) {
       else {
          Log "Instance $($Instance.Name) Does not Exist, Creating..." "Yellow"
          Log "Getting Image..."
-         $Image = Get-EC2ImageByName -Name $Instance.Image
+         $Image = Get-EC2Image -ImageId $Instance.Image
 
          $params = @{
             ImageId       = $Image.ImageId
@@ -60,13 +60,13 @@ ForEach ($Instance in $Config.Instances) {
    $InstanceObj = [PSCustomObject]@{
       Name     = ($InstanceExist.Instances.Tag | Where-Object {$_.Key -eq "Name"})[0].Value 
       Details  = $InstanceExist.Instances[0] 
-      Password = Get-EC2PasswordData -InstanceId $InstanceExist.Instances.InstanceId -PemFile "$RunDir\$($config.keypairname).pem"
+      Password = Get-EC2PasswordData -InstanceId $InstanceExist.Instances.InstanceId -PemFile "$RunDir\$($config.keypairname).pem" -ErrorAction SilentlyContinue
       status   = $InstanceExist.Instances[0].State.Name.Value  
    }
   
    @"
   Name: $(if($InstanceObj.Name){$instanceObj.Name}else{'null'}) 
-    + Platform: $($instanceObj.Details.Platform) 
+    + Description: $((Get-EC2Image -ImageId $InstanceObj.Details.ImageId).Description) 
     + InstanceType: $($instanceObj.Details.InstanceType)
     + Public IP: $($InstanceObj.Details.PublicIpAddress)
     + Status: $($InstanceObj.status)

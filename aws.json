@@ -3,29 +3,29 @@
   "Region": "us-east-2",
   "Instances": [
     {
-      "Name": "Matt-Web-01",
+      "Name": "Matt-WIN-01",
       "Type": "t2.micro",
-      "Image": "WINDOWS_2012R2_BASE"
+      "Image": "ami-028779930ada5200c"
     },
     {
-      "Name": "Matt-Web-02",
+      "Name": "Matt-WIN-02",
       "Type": "t2.micro",
-      "Image": "WINDOWS_2012R2_BASE"
+      "Image": "ami-0679e5ac84d15f15e"
     },
     {
-      "Name": "Matt-Web-03",
+      "Name": "Matt-WIN-03",
       "Type": "t2.micro",
-      "Image": "WINDOWS_2012R2_BASE"
+      "Image": "ami-0935776807b87a59e"
     },
     {
-      "Name": "Matt-Web-04",
+      "Name": "Matt-NIX-04",
       "Type": "t2.micro",
-      "Image": "WINDOWS_2012R2_BASE"
+      "Image": "ami-0b59bfac6be064b78"
     },
     {
-      "Name": "Matt-Web-05",
+      "Name": "Matt-NIX-05",
       "Type": "t2.micro",
-      "Image": "WINDOWS_2012R2_BASE"
+      "Image": "ami-0f65671a86f061fcd"
     }
   ],
   "DefaultImageName": "WINDOWS_2012R2_BASE",
