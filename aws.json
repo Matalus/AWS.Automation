@@ -3,32 +3,22 @@
   "Region": "us-east-2",
   "Instances": [
     {
-      "Name": "Matt-WIN-01",
+      "Name": "win-dsc-pull-01",
       "Type": "t2.micro",
       "Image": "ami-028779930ada5200c"
     },
     {
-      "Name": "Matt-WIN-02",
+      "Name": "win-dsc-pull-02",
       "Type": "t2.micro",
-      "Image": "ami-0679e5ac84d15f15e"
+      "Image": "ami-028779930ada5200c"
     },
     {
-      "Name": "Matt-WIN-03",
+      "Name": "win-dsc-pull-03",
       "Type": "t2.micro",
-      "Image": "ami-0935776807b87a59e"
-    },
-    {
-      "Name": "Matt-NIX-04",
-      "Type": "t2.micro",
-      "Image": "ami-0b59bfac6be064b78"
-    },
-    {
-      "Name": "Matt-NIX-05",
-      "Type": "t2.micro",
-      "Image": "ami-0f65671a86f061fcd"
+      "Image": "ami-028779930ada5200c"
     }
   ],
   "DefaultImageName": "WINDOWS_2012R2_BASE",
   "keypairname": "MattEC2",
-  "SecurityGroup": "MattEC2"
+  "SecurityGroup": "Default NSG"
 }
