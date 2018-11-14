@@ -194,6 +194,7 @@ While($WSManTestSuccess -lt $WSManTestCount){
       }
    }
 }
+"Done."
 
 
 
